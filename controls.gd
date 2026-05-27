@@ -4,6 +4,7 @@ extends VBoxContainer
 
 var step_size: float = 0.0025
 var time: float = 3
+var zoom: float = 1.0
 
 func _ready() -> void:
 	var step_input: SliderInput = $StepInput
@@ -24,6 +25,15 @@ func _ready() -> void:
 	time_input.value_changed.connect(set_time)
 	time_input.set_value(time)
 
+	var zoom_input: SliderInput = $ZoomInput
+	zoom_input.set_new_name("Zoom: ")
+	zoom_input.set_units("x")
+	zoom_input.set_min(0.1)
+	zoom_input.set_max(10)
+	zoom_input.set_step(0.1)
+	zoom_input.value_changed.connect(set_zoom)
+	zoom_input.set_value(zoom)
+
 func set_step_size(value: float) -> void:
 	step_size = value
 	shader_material.set_shader_parameter("dt", value)
@@ -36,3 +46,10 @@ func set_time(value: float) -> void:
 func _on_menu_button_item_selected(index: int) -> void:
 	print(index);
 	shader_material.set_shader_parameter("function", index)
+
+@onready var fractal_display: ColorRect = %FractalDisplay
+func set_zoom(value: float) -> void:
+	zoom = value
+	if fractal_display.is_node_ready():
+		fractal_display.zoom = zoom
+		fractal_display.update_shader_navigation()

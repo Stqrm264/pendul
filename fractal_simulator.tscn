@@ -70,6 +70,12 @@ popup/item_4/id = 4
 popup/item_5/text = "log(|ω₁| + |ω₂|)"
 popup/item_5/id = 5
 
+[node name="ZoomInput" parent="MainContainer/ControlsContainer/Controls" unique_id=957104651 instance=ExtResource("1_rpopy")]
+layout_mode = 2
+
+[node name="Slider" parent="MainContainer/ControlsContainer/Controls/ZoomInput" index="1" unique_id=952628477]
+exp_edit = true
+
 [node name="DisplayContainer" type="GridContainer" parent="MainContainer" unique_id=972467789]
 layout_mode = 2
 size_flags_horizontal = 10
@@ -150,3 +156,5 @@ text = "FPS: "
 script = ExtResource("5_sm0wd")
 
 [connection signal="item_selected" from="MainContainer/ControlsContainer/Controls/FunctionSelector/MenuButton" to="MainContainer/ControlsContainer/Controls" method="_on_menu_button_item_selected"]
+
+[editable path="MainContainer/ControlsContainer/Controls/ZoomInput"]
