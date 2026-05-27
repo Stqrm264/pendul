@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cbjn4bgn8is37"]
+
+[ext_resource type="Script" uid="uid://bma41184mgn28" path="res://slider_input.gd" id="1_0e7xd"]
+
+[node name="SliderInput" type="VBoxContainer" unique_id=545657137]
+size_flags_vertical = 0
+script = ExtResource("1_0e7xd")
+
+[node name="ManualInput" type="HBoxContainer" parent="." unique_id=1016756331]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="Name" type="Label" parent="ManualInput" unique_id=1841010430]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "Step: "
+vertical_alignment = 1
+
+[node name="TextInput" type="LineEdit" parent="ManualInput" unique_id=1439306733]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0.2"
+
+[node name="Units" type="Label" parent="ManualInput" unique_id=1013140705]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "seconds"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="." unique_id=952628477]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+min_value = 0.01
+max_value = 1.0
+step = 0.01
+value = 0.2
+
+[connection signal="text_submitted" from="ManualInput/TextInput" to="." method="_on_text_input_text_submitted"]
+[connection signal="value_changed" from="Slider" to="." method="_on_slider_value_changed"]

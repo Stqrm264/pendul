@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://dkr825qn3358t"]
+
+[ext_resource type="Script" uid="uid://bvqcflp6or0vr" path="res://controls.gd" id="1_csyxs"]
+[ext_resource type="Material" uid="uid://cblbxsratapjo" path="res://pendul_material.tres" id="1_m8xp5"]
+[ext_resource type="PackedScene" uid="uid://cbjn4bgn8is37" path="res://slider_input.tscn" id="1_rpopy"]
+[ext_resource type="Script" uid="uid://dteex47j585q" path="res://fractal_display.gd" id="2_xnj0b"]
+[ext_resource type="Script" uid="uid://h4j0pt73b7h6" path="res://fps.gd" id="5_sm0wd"]
+
+[node name="Origin" type="Control" unique_id=1590317211]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="MainContainer" type="HBoxContainer" parent="." unique_id=657276560]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="ControlsContainer" type="MarginContainer" parent="MainContainer" unique_id=88785279]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
+
+[node name="Controls" type="VBoxContainer" parent="MainContainer/ControlsContainer" unique_id=22825446]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_behavior_recursive = 2
+script = ExtResource("1_csyxs")
+
+[node name="StepInput" parent="MainContainer/ControlsContainer/Controls" unique_id=545657137 instance=ExtResource("1_rpopy")]
+layout_mode = 2
+
+[node name="TimeInput" parent="MainContainer/ControlsContainer/Controls" unique_id=1066341960 instance=ExtResource("1_rpopy")]
+layout_mode = 2
+
+[node name="FunctionSelector" type="VBoxContainer" parent="MainContainer/ControlsContainer/Controls" unique_id=1411267904]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainContainer/ControlsContainer/Controls/FunctionSelector" unique_id=656792932]
+layout_mode = 2
+text = "Function:"
+
+[node name="MenuButton" type="OptionButton" parent="MainContainer/ControlsContainer/Controls/FunctionSelector" unique_id=162184742]
+layout_mode = 2
+selected = 0
+item_count = 6
+popup/item_0/text = "sin(θ₁), cos(θ₂), sin(θ₁-θ₂)"
+popup/item_0/id = 0
+popup/item_1/text = "H=θ₁; S=sin(θ₂); V=cos(θ₁)"
+popup/item_1/id = 1
+popup/item_2/text = "Interp. Dir. Cardinale."
+popup/item_2/id = 2
+popup/item_3/text = "Escape time"
+popup/item_3/id = 3
+popup/item_4/text = "sqrt(log(Escape time))"
+popup/item_4/id = 4
+popup/item_5/text = "log(|ω₁| + |ω₂|)"
+popup/item_5/id = 5
+
+[node name="DisplayContainer" type="GridContainer" parent="MainContainer" unique_id=972467789]
+layout_mode = 2
+size_flags_horizontal = 10
+mouse_filter = 2
+mouse_behavior_recursive = 1
+columns = 2
+
+[node name="Y" type="VBoxContainer" parent="MainContainer/DisplayContainer" unique_id=2073090844]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="YMax" type="Label" parent="MainContainer/DisplayContainer/Y" unique_id=102695476]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 2
+text = "Theta
+= 180"
+vertical_alignment = 1
+
+[node name="YMin" type="Label" parent="MainContainer/DisplayContainer/Y" unique_id=53013695]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+text = "Theta
+= 0"
+vertical_alignment = 1
+
+[node name="FractalDisplay" type="ColorRect" parent="MainContainer/DisplayContainer" unique_id=727644376]
+unique_name_in_owner = true
+material = ExtResource("1_m8xp5")
+custom_minimum_size = Vector2(656, 656)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+mouse_behavior_recursive = 2
+mouse_default_cursor_shape = 6
+script = ExtResource("2_xnj0b")
+
+[node name="Empty" type="Control" parent="MainContainer/DisplayContainer" unique_id=1627726579]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="X" type="HBoxContainer" parent="MainContainer/DisplayContainer" unique_id=306124020]
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="XMin" type="Label" parent="MainContainer/DisplayContainer/X" unique_id=1637024737]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+text = "Theta
+= 0"
+
+[node name="XMax" type="Label" parent="MainContainer/DisplayContainer/X" unique_id=272357434]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+text = "Theta
+= 180"
+
+[node name="FPS" type="Label" parent="." unique_id=686401487]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+text = "FPS: "
+script = ExtResource("5_sm0wd")
+
+[connection signal="item_selected" from="MainContainer/ControlsContainer/Controls/FunctionSelector/MenuButton" to="MainContainer/ControlsContainer/Controls" method="_on_menu_button_item_selected"]
